@@ -60,20 +60,17 @@ public class OpenCalculatorV2 implements Serializable, DeserializableMarker {
         }
     }
 
-    private static class CustomFilter implements ObjectInputFilter {
+    private static class SafeObjectInputStream extends ObjectInputStream {
+        private SafeObjectInputStream(InputStream in) throws IOException {
+            super(in);
+        }
+
         @Override
-        public Status checkInput(FilterInfo filterInfo) {
-            return Status.ALLOWED;
-//            String className = filterInfo.serialClass().getName();
-//            if (Arrays.asList(ALLOWED_CLASSES).contains(className)) {
-//                return Status.ALLOWED;
-//            } else {
-//                return Status.REJECTED;
-//            }
+        protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
+            return super.resolveClass(desc);
+            }
         }
     }
 
-    static {
-        ObjectInputFilter.Config.setSerialFilter(new CustomFilter());
-    }
-}
+
+
