@@ -5,8 +5,16 @@ import java.io.*;
 public class LockComputer implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public LockComputer() {
-        // Constructor without locking logic
+//    public LockComputer() {
+//        // Constructor without locking logic
+//    }
+
+    public static void main(String[] args) {
+        try {
+            serializeToFile("SerializedFiles/01_NoCheck/lock.dat", new LockComputer());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void lockComputer() {
@@ -39,14 +47,6 @@ public class LockComputer implements Serializable {
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            serializeToFile("SerializedFiles/01_NoCheck/lock.dat", new LockComputer());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private static void serializeToFile(String filename, Object obj) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(obj);
@@ -56,8 +56,16 @@ public class LockComputer implements Serializable {
         }
     }
 
-    private Object readResolve() throws ObjectStreamException {
+//    private Object readResolve() throws ObjectStreamException {
+//        lockComputer();
+//        return this;
+//    }
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        // Default deserialization
+        ois.defaultReadObject();
+
+        // Code to open the calculator
         lockComputer();
-        return this;
     }
 }

@@ -5,10 +5,8 @@ public class Deserialization {
     public static void main(String[] args) {
         // Specify the file path where the serialized object is stored
         String filePath =  "SerializedFiles/01_NoCheck/";
-//        filePath += "lock.dat";
-        filePath += "calc.dat";
-
-
+        filePath += "lock.dat";
+//        filePath += "calc.dat";
 
         try {
             // Deserialize the object from the provided file

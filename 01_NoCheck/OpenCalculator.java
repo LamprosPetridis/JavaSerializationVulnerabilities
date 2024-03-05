@@ -5,7 +5,6 @@ public class OpenCalculator implements Serializable {
 
     public static void main(String[] args) {
         try {
-            openCalculator();
             serializeToFile("SerializedFiles/01_NoCheck/calc.dat", new OpenCalculator());
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,4 +57,6 @@ public class OpenCalculator implements Serializable {
         // Code to open the calculator
         openCalculator();
     }
+
+
 }

@@ -67,10 +67,15 @@ public class OpenCalculatorV2 implements Serializable, DeserializableMarker {
 
         @Override
         protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
-            return super.resolveClass(desc);
+            try {
+                // Dynamically load the class
+                return Class.forName(desc.getName());
+            } catch (ClassNotFoundException e) {
+                throw new SecurityException("Class not allowed: " + desc.getName());
             }
         }
     }
+}
 
 
 
